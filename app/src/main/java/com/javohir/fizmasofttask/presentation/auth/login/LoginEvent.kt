@@ -7,5 +7,5 @@ package com.javohir.fizmasofttask.presentation.auth.login
  * Description: Event's
  */
 sealed class LoginEvent {
-
+    data object NavigateToFaceDetection: LoginEvent()
 }

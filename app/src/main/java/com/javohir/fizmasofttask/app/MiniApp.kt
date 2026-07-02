@@ -4,7 +4,7 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 /**
- * Created by: Javohir Oromov macos
+ * Created by: Javohir Oromov macOS
  * Project: Fizmasoft task
  * Package: com.javohir.fizmasofttask
  * Description: Application class

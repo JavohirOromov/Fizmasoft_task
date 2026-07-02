@@ -50,7 +50,7 @@ fun SplashScreen(
     val destination by viewModel.destination.collectAsStateWithLifecycle()
 
     LaunchedEffect(destination) {
-        destination?.let { onNavigate }
+        destination?.let { onNavigate(it) }
     }
     Box(
         modifier = Modifier

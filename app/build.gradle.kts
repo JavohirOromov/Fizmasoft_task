@@ -56,4 +56,7 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+
+        // Material Icons Javohir Oromov
+        implementation(libs.androidx.compose.material.icons.extended)
 }

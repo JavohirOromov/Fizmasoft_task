@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Created by: Javohir Oromov macos
@@ -26,8 +27,16 @@ class SplashViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            delay(1500)
+            delay(1500.milliseconds)
 
+            // TODO: auth qilingan bo'lsa MAIN ga, aks holda LOGIN ga o'tsin.
+            //  Hozircha doim LOGIN ga o'tadi.
+            val isAuthenticated = false
+            _destination.value = if (isAuthenticated) {
+                SplashDestination.MAIN
+            } else {
+                SplashDestination.LOGIN
+            }
         }
     }
 

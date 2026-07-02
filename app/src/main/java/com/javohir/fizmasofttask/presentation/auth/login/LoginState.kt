@@ -11,5 +11,4 @@ data class LoginState(
     val passport: String = "",
     val isPassportVisible: Boolean = false,
     val isValid: Boolean = false,
-    val error: String? = null,
 )
