@@ -1,4 +1,4 @@
-package com.javohir.fizmasofttask
+package com.javohir.fizmasofttask.app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

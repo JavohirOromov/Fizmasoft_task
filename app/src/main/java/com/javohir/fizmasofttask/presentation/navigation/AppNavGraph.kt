@@ -1,11 +1,12 @@
 package com.javohir.fizmasofttask.presentation.navigation
-
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.javohir.fizmasofttask.presentation.splash.SplashDestination
+import com.javohir.fizmasofttask.presentation.splash.SplashScreen
 
 /**
  * Created by: Javohir Oromov macos
@@ -23,6 +24,20 @@ fun AppNavGraph(
         navController = navController,
         startDestination = Routes.SPLASH
     ){
-
+        composable(Routes.SPLASH){
+            SplashScreen(
+                paddingValues = paddingValues,
+                onNavigate = { destination ->
+                    when (destination){
+                        SplashDestination.LOGIN -> navController.navigate(Routes.LOGIN){
+                            popUpTo(Routes.SPLASH){inclusive = true}
+                        }
+                        SplashDestination.MAIN -> navController.navigate(Routes.MAIN){
+                            popUpTo(Routes.SPLASH){inclusive = true}
+                        }
+                    }
+                }
+            )
+        }
     }
 }

@@ -59,6 +59,7 @@ fun SplashScreen(
         contentAlignment = Alignment.Center
     ) {
         Column(
+            modifier = Modifier.padding(paddingValues = paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {

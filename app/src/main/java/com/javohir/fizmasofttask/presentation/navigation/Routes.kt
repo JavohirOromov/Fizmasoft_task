@@ -9,4 +9,6 @@ package com.javohir.fizmasofttask.presentation.navigation
 object Routes {
     const val SPLASH = "splash"
     const val LOGIN = "login"
+    const val FACE_DETECTION = "face_detection"
+    const val MAIN = "main"
 }
