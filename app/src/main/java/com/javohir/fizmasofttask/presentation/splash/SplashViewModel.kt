@@ -2,7 +2,7 @@ package com.javohir.fizmasofttask.presentation.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.javohir.fizmasofttask.domain.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,8 +19,8 @@ import kotlin.time.Duration.Companion.milliseconds
  */
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-
-): ViewModel() {
+    private val authRepository: AuthRepository,
+) : ViewModel() {
 
     private val _destination = MutableStateFlow<SplashDestination?>(null)
     val destination = _destination.asStateFlow()
@@ -29,15 +29,11 @@ class SplashViewModel @Inject constructor(
         viewModelScope.launch {
             delay(1500.milliseconds)
 
-            // TODO: auth qilingan bo'lsa MAIN ga, aks holda LOGIN ga o'tsin.
-            //  Hozircha doim LOGIN ga o'tadi.
-            val isAuthenticated = false
-            _destination.value = if (isAuthenticated) {
+            _destination.value = if (authRepository.isAuthenticated()) {
                 SplashDestination.MAIN
             } else {
                 SplashDestination.LOGIN
             }
         }
     }
-
 }

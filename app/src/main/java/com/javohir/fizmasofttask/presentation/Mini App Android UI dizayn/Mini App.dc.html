@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=block" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: Roboto, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  input::placeholder { color: #8a938b; opacity: 1; }
+  input { font-family: Roboto, system-ui, sans-serif; }
+  ::-webkit-scrollbar { width: 0; height: 0; }
+  @keyframes m3bar { 0% { left: -42%; width: 42%; } 55% { left: 55%; width: 62%; } 100% { left: 108%; width: 28%; } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes facePulse { 0%, 100% { border-color: rgba(255,255,255,0.9); box-shadow: 0 0 0 2000px rgba(16,21,18,0.72), 0 0 24px rgba(180,241,189,0.15); } 50% { border-color: rgba(180,241,189,0.95); box-shadow: 0 0 0 2000px rgba(16,21,18,0.72), 0 0 30px rgba(180,241,189,0.45); } }
+  @keyframes pinPulse { 0% { transform: translate(-50%,-50%) scale(0.5); opacity: 0.55; } 100% { transform: translate(-50%,-50%) scale(2); opacity: 0; } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 32px 16px; background: radial-gradient(circle at 50% 28%, #f1f4ef, #dde3dd);">
+
+  <div style="width: 412px; height: 892px; border-radius: 46px; overflow: hidden; background: #f6fbf3; border: 9px solid #b9c3bc; box-shadow: 0 34px 90px rgba(28,50,36,0.28); display: flex; flex-direction: column;">
+
+    <!-- Status bar -->
+    <div style="height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 20px 0 24px; position: relative; background: {{ statusBg }};">
+      <span style="font-size: 14px; font-weight: 500; letter-spacing: 0.2px; color: {{ statusFg }};">9:30</span>
+      <div style="position: absolute; left: 50%; top: 9px; transform: translateX(-50%); width: 22px; height: 22px; border-radius: 100px; background: #14110f;"></div>
+      <div style="display: flex; align-items: center; gap: 6px; color: {{ statusFg }};">
+        <span style="font-family: 'Material Symbols Outlined'; font-size: 17px; line-height: 1;">signal_cellular_alt</span>
+        <span style="font-family: 'Material Symbols Outlined'; font-size: 17px; line-height: 1;">wifi</span>
+        <span style="font-family: 'Material Symbols Outlined'; font-size: 19px; line-height: 1;">battery_full</span>
+      </div>
+    </div>
+
+    <!-- Content area -->
+    <div style="flex: 1; position: relative; overflow: hidden;">
+
+      <!-- ══════════ SPLASH ══════════ -->
+      <sc-if value="{{ showSplash }}" hint-placeholder-val="{{ true }}">
+        <div style="position: absolute; inset: 0; background: #326940; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <div style="width: 104px; height: 104px; border-radius: 30px; background: #f6fbf3; display: flex; align-items: center; justify-content: center; box-shadow: 0 16px 40px rgba(0,0,0,0.28); animation: fadeUp 0.6s ease both;">
+            <span style="font-size: 58px; font-weight: 700; color: #326940; line-height: 1; margin-top: -4px;">M</span>
+          </div>
+          <div style="margin-top: 24px; font-size: 30px; font-weight: 600; color: #ffffff; letter-spacing: 0.3px; animation: fadeUp 0.7s ease both;">Mini App</div>
+          <div style="margin-top: 6px; font-size: 14px; color: rgba(255,255,255,0.8); animation: fadeUp 0.8s ease both;">Ilovaga xush kelibsiz</div>
+          <div style="position: absolute; bottom: 84px; width: 168px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.24); overflow: hidden;">
+            <div style="position: absolute; top: 0; height: 100%; border-radius: 2px; background: #ffffff; animation: m3bar 1.6s cubic-bezier(0.4,0,0.2,1) infinite;"></div>
+          </div>
+          <div style="position: absolute; bottom: 52px; font-size: 12px; color: rgba(255,255,255,0.6);">Yuklanmoqda…</div>
+        </div>
+      </sc-if>
+
+      <!-- ══════════ LOGIN ══════════ -->
+      <sc-if value="{{ showLogin }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; overflow: auto; background: #f6fbf3; padding: 28px 24px 24px; display: flex; flex-direction: column;">
+          <div style="width: 52px; height: 52px; border-radius: 16px; background: #326940; display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 28px; font-weight: 700; color: #ffffff; line-height: 1; margin-top: -2px;">M</span>
+          </div>
+          <div style="margin-top: 22px; font-size: 26px; font-weight: 500; color: #171d18;">Xush kelibsiz</div>
+          <div style="margin-top: 6px; font-size: 15px; color: #414941; line-height: 1.4;">Davom etish uchun shaxsiy ma'lumotlaringizni kiriting</div>
+
+          <div style="margin-top: 34px; display: flex; flex-direction: column; gap: 22px;">
+            <!-- Date field -->
+            <div style="position: relative;">
+              <span style="position: absolute; top: -8px; left: 12px; padding: 0 5px; background: #f6fbf3; font-size: 12px; color: #326940; z-index: 1;">Tug'ilgan sana</span>
+              <div onClick="{{ openPicker }}" style="display: flex; align-items: center; gap: 12px; border: 1px solid #326940; border-radius: 12px; padding: 0 16px; height: 58px; cursor: pointer;">
+                <span style="font-family: 'Material Symbols Outlined'; font-size: 22px; color: #326940; line-height: 1;">calendar_month</span>
+                <span style="flex: 1; font-size: 16px; color: {{ birthColor }};">{{ birthText }}</span>
+                <span style="font-family: 'Material Symbols Outlined'; font-size: 24px; color: #414941; line-height: 1;">arrow_drop_down</span>
+              </div>
+            </div>
+            <!-- Passport field -->
+            <div style="position: relative;">
+              <span style="position: absolute; top: -8px; left: 12px; padding: 0 5px; background: #f6fbf3; font-size: 12px; color: #414941; z-index: 1;">Pasport ma'lumoti</span>
+              <div style="display: flex; align-items: center; gap: 12px; border: 1px solid #717971; border-radius: 12px; padding: 0 12px 0 16px; height: 58px;">
+                <span style="font-family: 'Material Symbols Outlined'; font-size: 22px; color: #326940; line-height: 1;">lock</span>
+                <input type="{{ passType }}" value="{{ passport }}" onChange="{{ onPass }}" placeholder="AA1234567" autocomplete="off" style="flex: 1; border: none; outline: none; background: transparent; font-size: 16px; color: #171d18; letter-spacing: 0.5px; min-width: 0;">
+                <div onClick="{{ toggle }}" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                  <span style="font-family: 'Material Symbols Outlined'; font-size: 22px; color: #414941; line-height: 1;">{{ eyeIcon }}</span>
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-top: -12px; margin-left: 4px;">
+              <span style="font-family: 'Material Symbols Outlined'; font-size: 15px; color: #326940; line-height: 1;">verified_user</span>
+              <span style="font-size: 12px; color: #414941;">Ma'lumotlaringiz xavfsiz shifrlanadi</span>
+            </div>
+          </div>
+
+          <div style="flex: 1;"></div>
+
+          <div onClick="{{ onContinue }}" style="height: 54px; border-radius: 27px; background: {{ continueBg }}; color: {{ continueColor }}; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 16px; font-weight: 500; cursor: pointer; margin-top: 24px;">
+            <span>Davom etish</span>
+            <span style="font-family: 'Material Symbols Outlined'; font-size: 20px; line-height: 1;">arrow_forward</span>
+          </div>
+          <div style="text-align: center; font-size: 12px; color: #414941; margin-top: 14px; line-height: 1.4;">Davom etish orqali foydalanish shartlariga rozilik bildirasiz</div>
+        </div>
+      </sc-if>
+
+      <!-- ══════════ FACE DETECTION ══════════ -->
+      <sc-if value="{{ showFace }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ skipFace }}" style="position: absolute; inset: 0; background: repeating-linear-gradient(135deg, #1b231e, #1b231e 13px, #161d19 13px, #161d19 26px); cursor: pointer; overflow: hidden;">
+          <div style="position: absolute; top: 14px; left: 16px; font-family: 'Roboto Mono', monospace; font-size: 10px; letter-spacing: 1px; color: rgba(255,255,255,0.28);">● REC · KAMERA</div>
+          <!-- oval cutout -->
+          <div style="position: absolute; left: 50%; top: 44%; transform: translate(-50%,-50%); width: 244px; height: 320px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.9); box-shadow: 0 0 0 2000px rgba(16,21,18,0.72), 0 0 30px rgba(180,241,189,0.3); animation: facePulse 2.2s ease-in-out infinite;">
+            <div style="position: absolute; inset: -14px; border-radius: 50%; border: 2px dashed rgba(180,241,189,0.55); animation: spin 9s linear infinite;"></div>
+          </div>
+          <div style="position: absolute; top: 60px; left: 0; right: 0; text-align: center;">
+            <div style="font-size: 18px; font-weight: 500; color: #ffffff;">Yuz aniqlanmoqda…</div>
+          </div>
+          <div style="position: absolute; bottom: 48px; left: 24px; right: 24px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+            <span style="font-family: 'Material Symbols Outlined'; font-size: 30px; color: rgba(180,241,189,0.95); line-height: 1;">face</span>
+            <div style="font-size: 15px; color: #ffffff; line-height: 1.45;">Yuzingizni oval ichida joylashtiring va harakatsiz turing</div>
+            <div style="font-size: 12px; color: rgba(255,255,255,0.6);">Yaxshi yoritilgan joyda turing</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ══════════ MAIN ══════════ -->
+      <sc-if value="{{ showMain }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column; background: #f6fbf3;">
+          <!-- top app bar -->
+          <div style="height: 60px; flex-shrink: 0; display: flex; align-items: center; padding: 0 8px 0 20px; gap: 8px; background: #f6fbf3;">
+            <span style="flex: 1; font-size: 22px; font-weight: 500; color: #171d18;">{{ mainTitle }}</span>
+            <div style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+              <span style="font-family: 'Material Symbols Outlined'; font-size: 24px; color: #414941; line-height: 1;">{{ mainAction }}</span>
+            </div>
+          </div>
+
+          <!-- scroll content -->
+          <div style="flex: 1; overflow: auto; position: relative;">
+
+            <!-- KINOLAR -->
+            <sc-if value="{{ showKino }}" hint-placeholder-val="{{ true }}">
+              <div style="padding: 4px 16px 20px;">
+                <!-- category chips -->
+                <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 14px;">
+                  <sc-for list="{{ genres }}" as="g" hint-placeholder-count="4">
+                    <div style="flex-shrink: 0; height: 34px; padding: 0 16px; border-radius: 17px; display: flex; align-items: center; font-size: 13px; font-weight: 500; background: {{ g.bg }}; color: {{ g.fg }}; border: 1px solid {{ g.bd }};">{{ g.name }}</div>
+                  </sc-for>
+                </div>
+
+                <!-- featured hero -->
+                <div style="position: relative; border-radius: 22px; overflow: hidden; height: 200px; background: linear-gradient(135deg, #2e4a3a, #47664f); display: flex; align-items: flex-end;">
+                  <div style="position: absolute; inset: 0; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05) 8px, transparent 8px, transparent 16px);"></div>
+                  <div style="position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.35); backdrop-filter: blur(4px); border-radius: 12px; padding: 5px 10px;">
+                    <span style="font-family: 'Material Symbols Outlined'; font-size: 15px; color: #ffd23f; line-height: 1; font-variation-settings: 'FILL' 1;">star</span>
+                    <span style="font-size: 13px; font-weight: 600; color: #ffffff;">{{ featured.rating }}</span>
+                  </div>
+                  <div style="position: absolute; top: 14px; right: 14px; font-family: 'Roboto Mono', monospace; font-size: 9px; letter-spacing: 1.5px; color: rgba(255,255,255,0.55);">POSTER</div>
+                  <div style="position: relative; width: 100%; padding: 18px; background: linear-gradient(to top, rgba(10,20,14,0.78), transparent);">
+                    <div style="font-size: 11px; font-weight: 600; letter-spacing: 1px; color: #b4f1bd;">TAVSIYA ETAMIZ</div>
+                    <div style="font-size: 22px; font-weight: 600; color: #ffffff; margin-top: 4px;">{{ featured.title }}</div>
+                    <div style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 2px;">{{ featured.meta }}</div>
+                  </div>
+                </div>
+
+                <div style="display: flex; align-items: center; margin-top: 22px; margin-bottom: 12px;">
+                  <span style="font-size: 17px; font-weight: 600; color: #171d18;">Mashhur kinolar</span>
+                  <span style="flex: 1;"></span>
+                  <span style="font-size: 13px; font-weight: 500; color: #326940;">Barchasi</span>
+                </div>
+
+                <!-- 2-column poster grid -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                  <sc-for list="{{ movies }}" as="m" hint-placeholder-count="4">
+                    <div style="display: flex; flex-direction: column;">
+                      <div style="position: relative; width: 100%; aspect-ratio: 2/3; border-radius: 16px; overflow: hidden; background: {{ m.tint }}; display: flex; align-items: flex-start; justify-content: flex-end;">
+                        <div style="position: absolute; inset: 0; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.06) 7px, transparent 7px, transparent 14px);"></div>
+                        <span style="position: absolute; bottom: 8px; left: 10px; font-family: 'Roboto Mono', monospace; font-size: 9px; letter-spacing: 1px; color: rgba(255,255,255,0.5);">POSTER</span>
+                        <div style="position: absolute; top: 8px; right: 8px; display: flex; align-items: center; gap: 3px; background: rgba(0,0,0,0.42); backdrop-filter: blur(4px); border-radius: 10px; padding: 4px 7px;">
+                          <span style="font-family: 'Material Symbols Outlined'; font-size: 13px; color: #ffd23f; line-height: 1; font-variation-settings: 'FILL' 1;">star</span>
+                          <span style="font-size: 12px; font-weight: 600; color: #ffffff;">{{ m.rating }}</span>
+                        </div>
+                        <div style="position: absolute; bottom: 8px; right: 8px; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.92); display: flex; align-items: center; justify-content: center;">
+                          <span style="font-family: 'Material Symbols Outlined'; font-size: 19px; color: #326940; line-height: 1; font-variation-settings: 'FILL' 1;">play_arrow</span>
+                        </div>
+                      </div>
+                      <div style="font-size: 15px; font-weight: 500; color: #171d18; margin-top: 8px; line-height: 1.25;">{{ m.title }}</div>
+                      <div style="font-size: 12px; color: #414941; margin-top: 2px;">{{ m.meta }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <!-- XARITA -->
+            <sc-if value="{{ showMap }}" hint-placeholder-val="{{ false }}">
+              <div style="position: absolute; inset: 0; overflow: hidden; background: #e7ece6; background-image: repeating-linear-gradient(0deg, rgba(120,140,124,0.18), rgba(120,140,124,0.18) 1px, transparent 1px, transparent 44px), repeating-linear-gradient(90deg, rgba(120,140,124,0.18), rgba(120,140,124,0.18) 1px, transparent 1px, transparent 44px); background-color: #e7ece6;">
+                <div style="position: absolute; top: 34%; left: 8%; width: 60%; height: 12px; background: rgba(160,175,163,0.5); border-radius: 6px; transform: rotate(18deg);"></div>
+                <div style="position: absolute; top: 62%; left: 20%; width: 74%; height: 10px; background: rgba(160,175,163,0.5); border-radius: 6px; transform: rotate(-12deg);"></div>
+                <!-- search bar -->
+                <div style="position: absolute; top: 16px; left: 16px; right: 16px; height: 52px; border-radius: 26px; background: #f6fbf3; box-shadow: 0 6px 20px rgba(0,0,0,0.12); display: flex; align-items: center; gap: 12px; padding: 0 8px 0 18px;">
+                  <span style="font-family: 'Material Symbols Outlined'; font-size: 22px; color: #414941; line-height: 1;">search</span>
+                  <span style="flex: 1; font-size: 15px; color: #8a938b;">Joyni qidiring</span>
+                  <div style="width: 36px; height: 36px; border-radius: 50%; background: #cfe9d6; display: flex; align-items: center; justify-content: center;">
+                    <span style="font-family: 'Material Symbols Outlined'; font-size: 20px; color: #0b2015; line-height: 1;">person</span>
+                  </div>
+                </div>
+                <div style="position: absolute; top: 82px; left: 0; right: 0; text-align: center; font-family: 'Roboto Mono', monospace; font-size: 10px; letter-spacing: 2px; color: rgba(65,73,65,0.35);">XARITA</div>
+                <!-- pin -->
+                <div style="position: absolute; left: 50%; top: 46%; width: 70px; height: 70px; border-radius: 50%; background: rgba(50,105,64,0.28); transform: translate(-50%,-50%); animation: pinPulse 2s ease-out infinite;"></div>
+                <span style="position: absolute; left: 50%; top: 46%; transform: translate(-50%,-90%); font-family: 'Material Symbols Outlined'; font-size: 48px; color: #326940; line-height: 1; font-variation-settings: 'FILL' 1; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));">location_on</span>
+                <!-- bottom card -->
+                <div style="position: absolute; bottom: 16px; left: 16px; right: 16px; background: #f6fbf3; border-radius: 20px; box-shadow: 0 8px 26px rgba(0,0,0,0.14); padding: 16px; display: flex; align-items: center; gap: 14px;">
+                  <div style="width: 44px; height: 44px; border-radius: 50%; background: #cfe9d6; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <span style="font-family: 'Material Symbols Outlined'; font-size: 24px; color: #0b2015; line-height: 1;">my_location</span>
+                  </div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 13px; color: #414941;">Joriy joylashuv</div>
+                    <div style="font-size: 16px; font-weight: 500; color: #171d18;">Toshkent, O'zbekiston</div>
+                  </div>
+                  <div style="width: 44px; height: 44px; border-radius: 50%; background: #326940; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <span style="font-family: 'Material Symbols Outlined'; font-size: 22px; color: #ffffff; line-height: 1;">directions</span>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
+            <!-- NAMOZ VAQTLARI -->
+            <sc-if value="{{ showNamoz }}" hint-placeholder-val="{{ false }}">
+              <div style="padding: 8px 16px 20px; display: flex; flex-direction: column; gap: 16px;">
+                <div style="background: #326940; border-radius: 22px; padding: 20px; color: #ffffff;">
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="font-family: 'Material Symbols Outlined'; font-size: 18px; color: rgba(255,255,255,0.9); line-height: 1;">location_on</span>
+                    <span style="font-size: 14px; font-weight: 500;">{{ pHeader.loc }}</span>
+                    <span style="flex: 1;"></span>
+                    <span style="font-size: 13px; color: rgba(255,255,255,0.8);">{{ pHeader.date }}</span>
+                  </div>
+                  <div style="margin-top: 18px; font-size: 13px; color: rgba(255,255,255,0.82);">Keyingi namozgacha</div>
+                  <div style="margin-top: 4px; font-size: 26px; font-weight: 600;">{{ pHeader.countdown }}</div>
+                  <div style="margin-top: 4px; font-size: 14px; color: rgba(255,255,255,0.85);">{{ pHeader.nextName }} · {{ pHeader.nextTime }}</div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <sc-for list="{{ prayers }}" as="p" hint-placeholder-count="5">
+                    <div style="background: {{ p.rowBg }}; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 14px;">
+                      <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(50,105,64,0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <span style="font-family: 'Material Symbols Outlined'; font-size: 22px; color: {{ p.iconColor }}; line-height: 1;">{{ p.icon }}</span>
+                      </div>
+                      <span style="font-size: 16px; font-weight: 500; color: {{ p.nameColor }};">{{ p.name }}</span>
+                      <sc-if value="{{ p.badge }}" hint-placeholder-val="{{ false }}">
+                        <span style="font-size: 11px; font-weight: 600; color: #ffffff; background: #326940; border-radius: 8px; padding: 3px 8px;">Keyingi</span>
+                      </sc-if>
+                      <span style="flex: 1;"></span>
+                      <span style="font-size: 16px; font-weight: 600; color: {{ p.timeColor }}; font-variant-numeric: tabular-nums;">{{ p.time }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <!-- OB-HAVO -->
+            <sc-if value="{{ showObHavo }}" hint-placeholder-val="{{ false }}">
+              <div style="padding: 8px 20px 24px; display: flex; flex-direction: column;">
+                <div style="display: flex; align-items: center; gap: 6px; justify-content: center;">
+                  <span style="font-family: 'Material Symbols Outlined'; font-size: 18px; color: #414941; line-height: 1;">location_on</span>
+                  <span style="font-size: 16px; font-weight: 500; color: #171d18;">{{ weather.loc }}</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; margin-top: 12px;">
+                  <span style="font-family: 'Material Symbols Outlined'; font-size: 68px; color: #e8a900; line-height: 1; font-variation-settings: 'FILL' 1;">{{ weather.icon }}</span>
+                  <div style="font-size: 74px; font-weight: 300; color: #171d18; line-height: 1; margin-top: 8px;">{{ weather.temp }}</div>
+                  <div style="font-size: 16px; color: #414941; margin-top: 4px;">{{ weather.cond }}</div>
+                  <div style="font-size: 14px; color: #8a938b; margin-top: 4px;">Eng yuqori {{ weather.hi }} · Eng past {{ weather.lo }}</div>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 26px;">
+                  <div style="flex: 1; background: #eef3ec; border-radius: 18px; padding: 16px 8px; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                    <span style="font-family: 'Material Symbols Outlined'; font-size: 24px; color: #326940; line-height: 1;">water_drop</span>
+                    <span style="font-size: 17px; font-weight: 600; color: #171d18;">{{ weather.hum }}</span>
+                    <span style="font-size: 12px; color: #414941;">Namlik</span>
+                  </div>
+                  <div style="flex: 1; background: #eef3ec; border-radius: 18px; padding: 16px 8px; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                    <span style="font-family: 'Material Symbols Outlined'; font-size: 24px; color: #326940; line-height: 1;">air</span>
+                    <span style="font-size: 17px; font-weight: 600; color: #171d18;">{{ weather.wind }}</span>
+                    <span style="font-size: 12px; color: #414941;">Shamol</span>
+                  </div>
+                  <div style="flex: 1; background: #eef3ec; border-radius: 18px; padding: 16px 8px; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                    <span style="font-family: 'Material Symbols Outlined'; font-size: 24px; color: #326940; line-height: 1;">thermostat</span>
+                    <span style="font-size: 17px; font-weight: 600; color: #171d18;">{{ weather.feels }}</span>
+                    <span style="font-size: 12px; color: #414941;">His etiladi</span>
+                  </div>
+                </div>
+                <div style="font-size: 13px; color: #414941; margin-top: 26px; margin-bottom: 10px;">Bugun · soatlik</div>
+                <div style="display: flex; gap: 10px; overflow-x: auto;">
+                  <sc-for list="{{ hourly }}" as="h" hint-placeholder-count="5">
+                    <div style="min-width: 58px; background: #eef3ec; border-radius: 16px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                      <span style="font-size: 12px; color: #414941;">{{ h.t }}</span>
+                      <span style="font-family: 'Material Symbols Outlined'; font-size: 22px; color: #e8a900; line-height: 1; font-variation-settings: 'FILL' 1;">{{ h.icon }}</span>
+                      <span style="font-size: 14px; font-weight: 600; color: #171d18;">{{ h.temp }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+          </div>
+
+          <!-- bottom navigation -->
+          <div style="height: 80px; flex-shrink: 0; background: #eef3ec; display: flex; align-items: stretch;">
+            <div onClick="{{ n0.click }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+              <div style="width: 56px; height: 32px; border-radius: 16px; background: {{ n0.ind }}; display: flex; align-items: center; justify-content: center;">
+                <span style="font-family: 'Material Symbols Outlined'; font-size: 24px; color: {{ n0.ic }}; line-height: 1;">{{ n0.icon }}</span>
+              </div>
+              <span style="font-size: 12px; font-weight: {{ n0.lw }}; color: {{ n0.lb }};">{{ n0.label }}</span>
+            </div>
+            <div onClick="{{ n1.click }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+              <div style="width: 56px; height: 32px; border-radius: 16px; background: {{ n1.ind }}; display: flex; align-items: center; justify-content: center;">
+                <span style="font-family: 'Material Symbols Outlined'; font-size: 24px; color: {{ n1.ic }}; line-height: 1;">{{ n1.icon }}</span>
+              </div>
+              <span style="font-size: 12px; font-weight: {{ n1.lw }}; color: {{ n1.lb }};">{{ n1.label }}</span>
+            </div>
+            <div onClick="{{ n2.click }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+              <div style="width: 56px; height: 32px; border-radius: 16px; background: {{ n2.ind }}; display: flex; align-items: center; justify-content: center;">
+                <span style="font-family: 'Material Symbols Outlined'; font-size: 24px; color: {{ n2.ic }}; line-height: 1;">{{ n2.icon }}</span>
+              </div>
+              <span style="font-size: 12px; font-weight: {{ n2.lw }}; color: {{ n2.lb }};">{{ n2.label }}</span>
+            </div>
+            <div onClick="{{ n3.click }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+              <div style="width: 56px; height: 32px; border-radius: 16px; background: {{ n3.ind }}; display: flex; align-items: center; justify-content: center;">
+                <span style="font-family: 'Material Symbols Outlined'; font-size: 24px; color: {{ n3.ic }}; line-height: 1;">{{ n3.icon }}</span>
+              </div>
+              <span style="font-size: 12px; font-weight: {{ n3.lw }}; color: {{ n3.lb }};">{{ n3.label }}</span>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ══════════ DATE PICKER DIALOG ══════════ -->
+      <sc-if value="{{ pickerOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 20;">
+          <div style="width: 100%; max-width: 360px; background: #eef3ec; border-radius: 28px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            <div style="padding: 18px 22px 12px; border-bottom: 1px solid #d7e0d6;">
+              <div style="font-size: 12px; color: #414941;">Tug'ilgan sana</div>
+              <div style="font-size: 26px; font-weight: 500; color: #171d18; margin-top: 6px;">{{ headline }}</div>
+            </div>
+            <div style="display: flex; align-items: center; padding: 12px 12px 8px;">
+              <div onClick="{{ toYearMode }}" style="display: flex; align-items: center; gap: 4px; padding: 6px 8px; cursor: pointer;">
+                <span style="font-size: 15px; font-weight: 500; color: #171d18;">{{ monthLabel }}</span>
+                <span style="font-family: 'Material Symbols Outlined'; font-size: 22px; color: #414941; line-height: 1;">arrow_drop_down</span>
+              </div>
+              <span style="flex: 1;"></span>
+              <sc-if value="{{ isDayMode }}" hint-placeholder-val="{{ true }}">
+                <div style="display: flex; gap: 4px;">
+                  <div onClick="{{ prevMonth }}" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                    <span style="font-family: 'Material Symbols Outlined'; font-size: 24px; color: #414941; line-height: 1;">chevron_left</span>
+                  </div>
+                  <div onClick="{{ nextMonth }}" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                    <span style="font-family: 'Material Symbols Outlined'; font-size: 24px; color: #414941; line-height: 1;">chevron_right</span>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+
+            <sc-if value="{{ isDayMode }}" hint-placeholder-val="{{ true }}">
+              <div style="padding: 0 12px 8px;">
+                <div style="display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 4px;">
+                  <sc-for list="{{ weekdays }}" as="w" hint-placeholder-count="7">
+                    <div style="text-align: center; font-size: 12px; font-weight: 500; color: #414941; padding: 6px 0;">{{ w }}</div>
+                  </sc-for>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;">
+                  <sc-for list="{{ cells }}" as="c" hint-placeholder-count="35">
+                    <div onClick="{{ c.click }}" style="height: 40px; display: flex; align-items: center; justify-content: center;">
+                      <div style="width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: {{ c.dayBg }}; color: {{ c.dayColor }}; font-size: 14px; cursor: pointer;">{{ c.day }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isYearMode }}" hint-placeholder-val="{{ false }}">
+              <div style="padding: 4px 16px; max-height: 264px; overflow-y: auto;">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+                  <sc-for list="{{ years }}" as="y" hint-placeholder-count="24">
+                    <div onClick="{{ y.click }}" style="height: 40px; border-radius: 20px; display: flex; align-items: center; justify-content: center; background: {{ y.yBg }}; color: {{ y.yColor }}; font-size: 15px; cursor: pointer;">{{ y.y }}</div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <div style="display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px 16px;">
+              <div onClick="{{ cancelPicker }}" style="padding: 10px 16px; border-radius: 20px; font-size: 14px; font-weight: 500; color: #326940; cursor: pointer;">Bekor qilish</div>
+              <div onClick="{{ confirmPicker }}" style="padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 500; color: #ffffff; background: #326940; cursor: pointer;">OK</div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+
+    <!-- gesture nav pill -->
+    <div style="height: 26px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: {{ statusBg }};">
+      <div style="width: 108px; height: 4px; border-radius: 2px; background: {{ navPill }};"></div>
+    </div>
+  </div>
+
+  <div onClick="{{ restart }}" style="display: flex; align-items: center; gap: 6px; color: #52605a; font-size: 13px; cursor: pointer;">
+    <span style="font-family: 'Material Symbols Outlined'; font-size: 18px; line-height: 1;">restart_alt</span>
+    <span>Oqimni qayta boshlash</span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { screen: 'splash', tab: 0, passport: '', showPass: false, birth: null, temp: null, pickerOpen: false, pickerMode: 'day', vy: 2000, vm: 5 };
+
+  months = ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentabr','Oktabr','Noyabr','Dekabr'];
+  wdShort = ['Du','Se','Ch','Pa','Ju','Sh','Ya'];
+  wdName = ['Yak','Dush','Sesh','Chor','Pay','Jum','Shan'];
+
+  componentDidMount() {
+    this._t = setTimeout(() => { if (this.state.screen === 'splash') this.setState({ screen: 'login' }); }, 2400);
+  }
+  componentWillUnmount() { clearTimeout(this._t); clearTimeout(this._f); }
+
+  fmtBirth(b) {
+    if (!b) return null;
+    const dd = String(b.d).padStart(2, '0');
+    const mm = String(b.m + 1).padStart(2, '0');
+    return `${dd}.${mm}.${b.y}`;
+  }
+
+  openPicker = () => {
+    const b = this.state.birth || { y: 2000, m: 5, d: 15 };
+    this.setState({ pickerOpen: true, pickerMode: 'day', vy: b.y, vm: b.m, temp: this.state.birth });
+  };
+  closePicker = () => this.setState({ pickerOpen: false });
+  confirmPicker = () => this.setState({ pickerOpen: false, birth: this.state.temp || this.state.birth });
+  prevMonth = () => this.setState(s => { let m = s.vm - 1, y = s.vy; if (m < 0) { m = 11; y--; } return { vm: m, vy: y }; });
+  nextMonth = () => this.setState(s => { let m = s.vm + 1, y = s.vy; if (m > 11) { m = 0; y++; } return { vm: m, vy: y }; });
+  selectDay = (d) => this.setState(s => ({ temp: { y: s.vy, m: s.vm, d } }));
+  toYearMode = () => this.setState({ pickerMode: 'year' });
+  selectYear = (y) => this.setState({ vy: y, pickerMode: 'day' });
+
+  onPass = (e) => this.setState({ passport: e.target.value });
+  togglePass = () => this.setState(s => ({ showPass: !s.showPass }));
+
+  goFace = () => {
+    if (!(this.state.birth && this.state.passport.length > 0)) return;
+    this.setState({ screen: 'face' });
+    clearTimeout(this._f);
+    this._f = setTimeout(() => { if (this.state.screen === 'face') this.setState({ screen: 'main' }); }, 3000);
+  };
+  skipFace = () => { clearTimeout(this._f); this.setState({ screen: 'main' }); };
+  setTab = (n) => this.setState({ tab: n });
+  restart = () => {
+    clearTimeout(this._t); clearTimeout(this._f);
+    this.setState({ screen: 'splash', tab: 0 });
+    this._t = setTimeout(() => { if (this.state.screen === 'splash') this.setState({ screen: 'login' }); }, 2400);
+  };
+
+  renderVals() {
+    const s = this.state;
+    const dark = s.screen === 'splash' || s.screen === 'face';
+
+    // calendar cells
+    const daysIn = new Date(s.vy, s.vm + 1, 0).getDate();
+    let first = new Date(s.vy, s.vm, 1).getDay();
+    first = (first + 6) % 7;
+    const cells = [];
+    for (let i = 0; i < first; i++) cells.push({ key: 'e' + i, day: '' });
+    for (let d = 1; d <= daysIn; d++) {
+      const sel = s.temp && s.temp.y === s.vy && s.temp.m === s.vm && s.temp.d === d;
+      cells.push({ key: 'd' + d, day: d, dayBg: sel ? '#326940' : 'transparent', dayColor: sel ? '#ffffff' : '#171d18', click: () => this.selectDay(d) });
+    }
+    const years = [];
+    for (let y = 2012; y >= 1940; y--) {
+      years.push({ key: y, y, yBg: y === s.vy ? '#326940' : 'transparent', yColor: y === s.vy ? '#ffffff' : '#171d18', click: () => this.selectYear(y) });
+    }
+    let headline = 'Sanani tanlang';
+    const hb = s.temp;
+    if (hb) { const dt = new Date(hb.y, hb.m, hb.d); headline = `${this.wdName[dt.getDay()]}, ${hb.d} ${this.months[hb.m]}`; }
+
+    const mk = (i, icon, label) => {
+      const a = s.tab === i;
+      return { icon, label, click: () => this.setTab(i), ind: a ? '#cfe9d6' : 'transparent', ic: a ? '#0b2015' : '#414941', lb: a ? '#171d18' : '#414941', lw: a ? 600 : 500 };
+    };
+
+    const movies = [
+      { key: 1, title: 'Sokin Tong', meta: 'Drama • 2024', rating: '8.4' },
+      { key: 2, title: "Cho'l Yuragi", meta: 'Sarguzasht • 2023', rating: '7.9' },
+      { key: 3, title: 'Oxirgi Voha', meta: 'Fantastika • 2025', rating: '8.1' },
+      { key: 4, title: 'Tungi Chiroqlar', meta: 'Triller • 2022', rating: '7.5' },
+      { key: 5, title: "Baland Tog'lar", meta: 'Hujjatli • 2024', rating: '9.0' },
+    ];
+
+    const pr = [
+      { name: 'Bomdod', time: '03:45', icon: 'wb_twilight' },
+      { name: 'Peshin', time: '12:35', icon: 'light_mode' },
+      { name: 'Asr', time: '17:30', icon: 'wb_sunny' },
+      { name: 'Shom', time: '20:05', icon: 'wb_twilight' },
+      { name: 'Xufton', time: '21:35', icon: 'bedtime' },
+    ];
+    const nextIdx = 1;
+    const prayers = pr.map((p, i) => ({
+      key: p.name, name: p.name, time: p.time, icon: p.icon, badge: i === nextIdx,
+      rowBg: i === nextIdx ? '#b4f1bd' : '#eef3ec',
+      nameColor: i === nextIdx ? '#00210f' : '#171d18',
+      timeColor: i === nextIdx ? '#00210f' : '#414941',
+      iconColor: i === nextIdx ? '#0b3d22' : '#326940',
+    }));
+
+    const hourly = [
+      { key: 'h9', t: '9:00', temp: '28°', icon: 'clear_day' },
+      { key: 'h10', t: '10:00', temp: '29°', icon: 'clear_day' },
+      { key: 'h11', t: '11:00', temp: '30°', icon: 'clear_day' },
+      { key: 'h12', t: '12:00', temp: '32°', icon: 'clear_day' },
+      { key: 'h13', t: '13:00', temp: '33°', icon: 'partly_cloudy_day' },
+      { key: 'h14', t: '14:00', temp: '34°', icon: 'partly_cloudy_day' },
+    ];
+
+    const canContinue = !!(s.birth && s.passport.length > 0);
+
+    return {
+      statusBg: s.screen === 'splash' ? '#326940' : (s.screen === 'face' ? '#101512' : '#f6fbf3'),
+      statusFg: dark ? '#ffffff' : '#171d18',
+      navPill: dark ? 'rgba(255,255,255,0.7)' : 'rgba(23,29,24,0.4)',
+      showSplash: s.screen === 'splash', showLogin: s.screen === 'login', showFace: s.screen === 'face', showMain: s.screen === 'main',
+      birthText: this.fmtBirth(s.birth) || 'kk.oo.yyyy',
+      birthColor: s.birth ? '#171d18' : '#8a938b',
+      openPicker: this.openPicker,
+      passport: s.passport, passType: s.showPass ? 'text' : 'password', eyeIcon: s.showPass ? 'visibility_off' : 'visibility',
+      onPass: this.onPass, toggle: this.togglePass,
+      continueBg: canContinue ? '#326940' : '#dbe5db', continueColor: canContinue ? '#ffffff' : '#8a938b', onContinue: this.goFace,
+      skipFace: this.skipFace,
+      pickerOpen: s.pickerOpen, isDayMode: s.pickerMode === 'day', isYearMode: s.pickerMode === 'year',
+      headline, monthLabel: `${this.months[s.vm]} ${s.vy}`, weekdays: this.wdShort, cells, years,
+      prevMonth: this.prevMonth, nextMonth: this.nextMonth, toYearMode: this.toYearMode,
+      confirmPicker: this.confirmPicker, cancelPicker: this.closePicker,
+      n0: mk(0, 'movie', 'Kinolar'), n1: mk(1, 'map', 'Xarita'), n2: mk(2, 'mosque', 'Namoz'), n3: mk(3, 'partly_cloudy_day', 'Ob-havo'),
+      mainTitle: ['Kinolar', 'Xarita', 'Namoz vaqtlari', 'Ob-havo'][s.tab], mainAction: 'more_vert',
+      showKino: s.tab === 0, showMap: s.tab === 1, showNamoz: s.tab === 2, showObHavo: s.tab === 3,
+      movies, prayers, hourly,
+      pHeader: { loc: 'Toshkent', date: '2 Iyul, Payshanba', nextName: 'Peshin', nextTime: '12:35', countdown: '3 soat 5 daqiqa' },
+      weather: { loc: 'Toshkent', temp: '29°', cond: 'Ochiq, quyoshli', icon: 'clear_day', hi: '34°', lo: '24°', hum: '42%', wind: '3.4 m/s', feels: '31°' },
+      restart: this.restart,
+    };
+  }
+}
+</script>
+</body>
+</html>
