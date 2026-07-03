@@ -2,11 +2,7 @@ package com.javohir.fizmasofttask.presentation.main.prayer
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
-import android.os.PowerManager
-import android.provider.Settings
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -34,7 +30,6 @@ import com.javohir.fizmasofttask.core.ui.Background
 import com.javohir.fizmasofttask.core.ui.TextSecondary
 import com.javohir.fizmasofttask.presentation.main.prayer.component.HeaderCard
 import com.javohir.fizmasofttask.presentation.main.prayer.component.PrayerRow
-import androidx.core.net.toUri
 
 /**
  * Created by: Javohir Oromov macos
@@ -42,7 +37,7 @@ import androidx.core.net.toUri
  * Package: com.javohir.fizmasofttask.presentation.main.prayer
  * Description: Namoz vaqtlari tab
  */
-@SuppressLint("InlinedApi", "BatteryLife")
+@SuppressLint("InlinedApi")
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun PrayerScreen(
