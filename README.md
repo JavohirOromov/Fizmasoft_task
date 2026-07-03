@@ -132,29 +132,7 @@ com.javohir.fizmasofttask
 - **compileSdk 37**, **minSdk 24**, **targetSdk 36**
 - Haqiqiy qurilma yoki emulyator (kamera + bildirishnomalar uchun haqiqiy qurilma tavsiya etiladi)
 
-### Sozlash
 
-1. **Repozitoriyani klonlash**
-   ```bash
-   git clone <repo-url>
-   cd Fizmasofttask
-   ```
-
-2. **Google Maps API kalitini qo'shish.** Xarita tabi Maps SDK kalitini talab qiladi. Uni `local.properties` fayliga qo'shing (bu fayl git'da e'tiborsiz qoldiriladi):
-   ```properties
-   MAPS_API_KEY=sizning_google_maps_api_kalitingiz
-   ```
-   Kalit build paytida `manifestPlaceholders` orqali manifestga qo'shiladi.
-
-3. **Build va ishga tushirish**
-   ```bash
-   ./gradlew installDebug
-   ```
-   yoki loyihani Android Studio'da ochib **Run** tugmasini bosing.
-
-> TMDB API kaliti demo uchun ilova ichiga joylangan. Production uchun uni manba nazoratidan chiqarib tashlang (masalan `local.properties` / BuildConfig'ga ko'chiring).
-
----
 
 ##  Namoz bildirishnomalari
 
