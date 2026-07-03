@@ -52,7 +52,7 @@ import com.javohir.fizmasofttask.core.ui.TextSecondary
  * Created by: Javohir Oromov macos
  * Project: Fizmasoft task
  * Package: com.javohir.fizmasofttask.presentation.main.map
- * Description: Xarita tab (GoogleMap + joylashuv + marker)
+ * Description: Xarita tab
  */
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable

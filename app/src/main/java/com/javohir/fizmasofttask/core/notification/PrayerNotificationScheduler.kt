@@ -38,19 +38,24 @@ class PrayerNotificationScheduler @Inject constructor(
             val pendingIntent = buildPendingIntent(index, prayer)
 
             try {
-                if (canScheduleExact(alarmManager)) {
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
-                } else {
-                    alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
-                }
+                val info = AlarmManager.AlarmClockInfo(triggerAt, showIntent())
+                alarmManager.setAlarmClock(info, pendingIntent)
             } catch (e: SecurityException) {
                 alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pendingIntent)
             }
         }
     }
 
-    private fun canScheduleExact(am: AlarmManager): Boolean =
-        Build.VERSION.SDK_INT < Build.VERSION_CODES.S || am.canScheduleExactAlarms()
+    private fun showIntent(): PendingIntent? {
+        val launch = context.packageManager.getLaunchIntentForPackage(context.packageName)
+            ?: return null
+        return PendingIntent.getActivity(
+            context,
+            1000,
+            launch,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+        )
+    }
 
     private fun buildPendingIntent(index: Int, prayer: PrayerTime): PendingIntent {
         val intent = Intent(context, PrayerAlarmReceiver::class.java).apply {

@@ -33,7 +33,7 @@ import com.javohir.fizmasofttask.presentation.main.movies.component.MovieItem
  * Created by: Javohir Oromov macos
  * Project: Fizmasoft task
  * Package: com.javohir.fizmasofttask.presentation.main.movies
- * Description: Kinolar tab (Screen + Content + Preview)
+ * Description: Kinolar tab
  */
 @Composable
 fun MoviesScreen(
