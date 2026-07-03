@@ -8,7 +8,7 @@ import retrofit2.http.Query
  * Created by: Javohir Oromov macos
  * Project: Fizmasoft task
  * Package: com.javohir.fizmasofttask.data.remote.api.weather
- * Description: Open-Meteo (kalitsiz)
+ * Description: Open-Meteo
  */
 interface WeatherApi {
 

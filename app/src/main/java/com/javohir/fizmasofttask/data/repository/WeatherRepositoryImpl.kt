@@ -13,7 +13,7 @@ import javax.inject.Inject
  * Created by: Javohir Oromov macos
  * Project: Fizmasoft task
  * Package: com.javohir.fizmasofttask.data.repository
- * Description: Sof data — Open-Meteo + Room cache
+ * Description: S
  */
 class WeatherRepositoryImpl @Inject constructor(
     private val api: WeatherApi,

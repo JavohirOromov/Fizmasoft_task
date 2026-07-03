@@ -16,8 +16,6 @@ interface MovieDao {
     @Query("SELECT * FROM movies")
     suspend fun getAll(): List<MovieEntity>
 
-    @Query("SELECT * FROM movies WHERE id = :id")
-    suspend fun getById(id: Int): MovieEntity?
 
     @Upsert
     suspend fun upsertAll(movies: List<MovieEntity>)
