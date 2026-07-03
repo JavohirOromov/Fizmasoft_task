@@ -1,4 +1,4 @@
-package com.javohir.fizmasofttask.presentation.splash
+package com.javohir.fizmasofttask.presentation.splash.utils
 
 /**
  * Created by: Javohir Oromov macos

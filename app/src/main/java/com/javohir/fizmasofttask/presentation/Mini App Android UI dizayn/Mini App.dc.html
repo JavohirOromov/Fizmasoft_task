@@ -143,54 +143,23 @@
             <!-- KINOLAR -->
             <sc-if value="{{ showKino }}" hint-placeholder-val="{{ true }}">
               <div style="padding: 4px 16px 20px;">
-                <!-- category chips -->
-                <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 14px;">
-                  <sc-for list="{{ genres }}" as="g" hint-placeholder-count="4">
-                    <div style="flex-shrink: 0; height: 34px; padding: 0 16px; border-radius: 17px; display: flex; align-items: center; font-size: 13px; font-weight: 500; background: {{ g.bg }}; color: {{ g.fg }}; border: 1px solid {{ g.bd }};">{{ g.name }}</div>
-                  </sc-for>
-                </div>
-
-                <!-- featured hero -->
-                <div style="position: relative; border-radius: 22px; overflow: hidden; height: 200px; background: linear-gradient(135deg, #2e4a3a, #47664f); display: flex; align-items: flex-end;">
-                  <div style="position: absolute; inset: 0; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05) 8px, transparent 8px, transparent 16px);"></div>
-                  <div style="position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.35); backdrop-filter: blur(4px); border-radius: 12px; padding: 5px 10px;">
-                    <span style="font-family: 'Material Symbols Outlined'; font-size: 15px; color: #ffd23f; line-height: 1; font-variation-settings: 'FILL' 1;">star</span>
-                    <span style="font-size: 13px; font-weight: 600; color: #ffffff;">{{ featured.rating }}</span>
-                  </div>
-                  <div style="position: absolute; top: 14px; right: 14px; font-family: 'Roboto Mono', monospace; font-size: 9px; letter-spacing: 1.5px; color: rgba(255,255,255,0.55);">POSTER</div>
-                  <div style="position: relative; width: 100%; padding: 18px; background: linear-gradient(to top, rgba(10,20,14,0.78), transparent);">
-                    <div style="font-size: 11px; font-weight: 600; letter-spacing: 1px; color: #b4f1bd;">TAVSIYA ETAMIZ</div>
-                    <div style="font-size: 22px; font-weight: 600; color: #ffffff; margin-top: 4px;">{{ featured.title }}</div>
-                    <div style="font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 2px;">{{ featured.meta }}</div>
-                  </div>
-                </div>
-
-                <div style="display: flex; align-items: center; margin-top: 22px; margin-bottom: 12px;">
-                  <span style="font-size: 17px; font-weight: 600; color: #171d18;">Mashhur kinolar</span>
-                  <span style="flex: 1;"></span>
-                  <span style="font-size: 13px; font-weight: 500; color: #326940;">Barchasi</span>
-                </div>
-
-                <!-- 2-column poster grid -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-                  <sc-for list="{{ movies }}" as="m" hint-placeholder-count="4">
-                    <div style="display: flex; flex-direction: column;">
-                      <div style="position: relative; width: 100%; aspect-ratio: 2/3; border-radius: 16px; overflow: hidden; background: {{ m.tint }}; display: flex; align-items: flex-start; justify-content: flex-end;">
-                        <div style="position: absolute; inset: 0; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.06) 7px, transparent 7px, transparent 14px);"></div>
-                        <span style="position: absolute; bottom: 8px; left: 10px; font-family: 'Roboto Mono', monospace; font-size: 9px; letter-spacing: 1px; color: rgba(255,255,255,0.5);">POSTER</span>
-                        <div style="position: absolute; top: 8px; right: 8px; display: flex; align-items: center; gap: 3px; background: rgba(0,0,0,0.42); backdrop-filter: blur(4px); border-radius: 10px; padding: 4px 7px;">
-                          <span style="font-family: 'Material Symbols Outlined'; font-size: 13px; color: #ffd23f; line-height: 1; font-variation-settings: 'FILL' 1;">star</span>
-                          <span style="font-size: 12px; font-weight: 600; color: #ffffff;">{{ m.rating }}</span>
-                        </div>
-                        <div style="position: absolute; bottom: 8px; right: 8px; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.92); display: flex; align-items: center; justify-content: center;">
-                          <span style="font-family: 'Material Symbols Outlined'; font-size: 19px; color: #326940; line-height: 1; font-variation-settings: 'FILL' 1;">play_arrow</span>
-                        </div>
-                      </div>
-                      <div style="font-size: 15px; font-weight: 500; color: #171d18; margin-top: 8px; line-height: 1.25;">{{ m.title }}</div>
-                      <div style="font-size: 12px; color: #414941; margin-top: 2px;">{{ m.meta }}</div>
+                <sc-for list="{{ movies }}" as="m" hint-placeholder-count="5">
+                  <div style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid #e1e7df;">
+                    <div style="width: 64px; height: 92px; border-radius: 10px; flex-shrink: 0; position: relative; overflow: hidden; background: repeating-linear-gradient(135deg, #d3ddd2, #d3ddd2 6px, #dde5dc 6px, #dde5dc 12px); display: flex; align-items: center; justify-content: center;">
+                      <span style="font-family: 'Roboto Mono', monospace; font-size: 9px; letter-spacing: 1px; color: #6b746d;">POSTER</span>
                     </div>
-                  </sc-for>
-                </div>
+                    <div style="flex: 1; min-width: 0;">
+                      <div style="font-size: 16px; font-weight: 500; color: #171d18;">{{ m.title }}</div>
+                      <div style="font-size: 13px; color: #414941; margin-top: 3px;">{{ m.meta }}</div>
+                      <div style="display: flex; align-items: center; gap: 5px; margin-top: 8px;">
+                        <span style="font-family: 'Material Symbols Outlined'; font-size: 17px; color: #e8a900; line-height: 1; font-variation-settings: 'FILL' 1;">star</span>
+                        <span style="font-size: 13px; font-weight: 500; color: #171d18;">{{ m.rating }}</span>
+                        <span style="font-size: 13px; color: #8a938b;">/ 10</span>
+                      </div>
+                    </div>
+                    <span style="font-family: 'Material Symbols Outlined'; font-size: 22px; color: #414941; line-height: 1;">bookmark_border</span>
+                  </div>
+                </sc-for>
               </div>
             </sc-if>
 

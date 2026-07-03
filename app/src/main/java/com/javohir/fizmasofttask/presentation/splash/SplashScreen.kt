@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.javohir.fizmasofttask.R
+import com.javohir.fizmasofttask.presentation.splash.utils.SplashDestination
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -38,20 +39,28 @@ import kotlin.time.Duration.Companion.milliseconds
  * Created by: Javohir Oromov macos
  * Project: Fizmasoft task
  * Package: com.javohir.fizmasofttask.presentation.splash
- * Description: Composable screen
+ * Description: Composable Screen
  */
 
 @Composable
 fun SplashScreen(
     paddingValues: PaddingValues,
     onNavigate: (SplashDestination) -> Unit,
-    viewModel: SplashViewModel = hiltViewModel()
-){
+    viewModel: SplashViewModel = hiltViewModel(),
+) {
     val destination by viewModel.destination.collectAsStateWithLifecycle()
 
     LaunchedEffect(destination) {
         destination?.let { onNavigate(it) }
     }
+
+    SplashContent(paddingValues = paddingValues)
+}
+
+@Composable
+private fun SplashContent(
+    paddingValues: PaddingValues,
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -111,12 +120,12 @@ fun SplashScreen(
                     var progress by remember { mutableFloatStateOf(0f) }
 
                     LaunchedEffect(Unit) {
-                        while (progress < 1f){
-                            progress = if (progress < 0.42f){
+                        while (progress < 1f) {
+                            progress = if (progress < 0.42f) {
                                 progress + 0.03f
-                            }else if (progress < 0.55f){
+                            } else if (progress < 0.55f) {
                                 progress + 0.05f
-                            }else{
+                            } else {
                                 progress + 0.02f
                             }
                             delay(30.milliseconds)
@@ -136,17 +145,16 @@ fun SplashScreen(
                 text = stringResource(id = R.string.loading),
                 fontSize = 12.sp,
                 color = Color.White.copy(alpha = 0.6f),
-
             )
             Spacer(modifier = Modifier.weight(0.1f))
         }
     }
 }
+
 @Composable
 @Preview(showBackground = true)
-fun SplashPreview(){
-    SplashScreen(
+private fun SplashPreview() {
+    SplashContent(
         paddingValues = PaddingValues(all = 12.dp),
-        onNavigate = {}
     )
 }

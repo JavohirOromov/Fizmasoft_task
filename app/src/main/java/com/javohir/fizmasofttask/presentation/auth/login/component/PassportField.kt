@@ -32,6 +32,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import com.javohir.fizmasofttask.core.ui.Background
+import com.javohir.fizmasofttask.core.ui.BorderUnfocused
+import com.javohir.fizmasofttask.core.ui.Green
+import com.javohir.fizmasofttask.core.ui.TextDisabled
+import com.javohir.fizmasofttask.core.ui.TextPrimary
+import com.javohir.fizmasofttask.core.ui.TextSecondary
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -57,18 +63,18 @@ fun PassportField(
 
     val borderColor = when {
         isError -> Color.Red
-        isFocused -> Color(0xFF326940)
-        else -> Color(0xFF717971)
+        isFocused -> Green
+        else -> BorderUnfocused
     }
 
     Column {
         Text(
             text = "Passport ma'lumoti",
             fontSize = 12.sp,
-            color = if (isError) Color.Red else Color(0xFF414941),
+            color = if (isError) Color.Red else TextSecondary,
             modifier = Modifier
                 .padding(start = 12.dp, bottom = 4.dp)
-                .background(Color(0xFFF6FBF3))
+                .background(Background)
                 .padding(horizontal = 4.dp)
         )
         Row(
@@ -86,7 +92,7 @@ fun PassportField(
             Icon(
                 imageVector = Icons.Default.Lock,
                 contentDescription = null,
-                tint = Color(0xFF326940),
+                tint = Green,
                 modifier = Modifier.size(22.dp)
             )
             Spacer(modifier = Modifier.width(12.dp))
@@ -98,7 +104,7 @@ fun PassportField(
                     .onFocusChanged { isFocused = it.isFocused },
                 textStyle = LocalTextStyle.current.copy(
                     fontSize = 16.sp,
-                    color = Color(0xFF171D18),
+                    color = TextPrimary,
                     letterSpacing = 0.5.sp
                 ),
                 keyboardOptions = KeyboardOptions(
@@ -115,7 +121,7 @@ fun PassportField(
                         Text(
                             text = "AA1234567",
                             fontSize = 16.sp,
-                            color = Color(0xFF8A938B)
+                            color = TextDisabled
                         )
                     }
                     inner()
@@ -128,7 +134,7 @@ fun PassportField(
                 Icon(
                     imageVector = if (isVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility,
                     contentDescription = null,
-                    tint = Color(0xFF414941),
+                    tint = TextSecondary,
                     modifier = Modifier.size(22.dp)
                 )
             }

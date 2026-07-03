@@ -2,6 +2,10 @@ package com.javohir.fizmasofttask.data.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.room.Room
+import com.javohir.fizmasofttask.data.local.dataBase.AppDatabase
+import com.javohir.fizmasofttask.data.local.movies.MovieDao
+import com.javohir.fizmasofttask.data.local.weather.WeatherDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,4 +29,18 @@ object DatabaseModule {
         @ApplicationContext context: Context,
     ): SharedPreferences =
         context.getSharedPreferences("fizmasoft_prefs", Context.MODE_PRIVATE)
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase =
+        Room.databaseBuilder(context, AppDatabase::class.java, "fizmasoft.db")
+            .fallbackToDestructiveMigration()
+            .build()
+
+    @Provides
+    fun provideMovieDao(db: AppDatabase): MovieDao = db.movieDao()
+
+    @Provides
+    fun provideWeatherDao(db: AppDatabase): WeatherDao = db.weatherDao()
+
 }

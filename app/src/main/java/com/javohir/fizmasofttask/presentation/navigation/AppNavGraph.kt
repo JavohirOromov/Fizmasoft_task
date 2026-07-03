@@ -5,8 +5,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.javohir.fizmasofttask.presentation.auth.faceDetection.FaceDetectionScreen
 import com.javohir.fizmasofttask.presentation.auth.login.LoginScreen
-import com.javohir.fizmasofttask.presentation.splash.SplashDestination
+import com.javohir.fizmasofttask.presentation.main.MainScreen
+import com.javohir.fizmasofttask.presentation.splash.utils.SplashDestination
 import com.javohir.fizmasofttask.presentation.splash.SplashScreen
 
 /**
@@ -48,6 +50,21 @@ fun AppNavGraph(
                         popUpTo(Routes.LOGIN){inclusive = false}
                     }
                 }
+            )
+        }
+        composable(Routes.FACE_DETECTION){
+            FaceDetectionScreen(
+                paddingValues = paddingValues,
+                navigateToMain = {
+                    navController.navigate(Routes.MAIN){
+                        popUpTo(Routes.LOGIN){inclusive = true}
+                    }
+                }
+            )
+        }
+        composable(Routes.MAIN){
+            MainScreen(
+                paddingValues = paddingValues
             )
         }
     }

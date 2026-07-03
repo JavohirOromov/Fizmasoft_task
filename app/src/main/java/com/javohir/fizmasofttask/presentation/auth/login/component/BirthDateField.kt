@@ -29,6 +29,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import com.javohir.fizmasofttask.core.ui.Background
+import com.javohir.fizmasofttask.core.ui.BorderUnfocused
+import com.javohir.fizmasofttask.core.ui.Green
+import com.javohir.fizmasofttask.core.ui.TextDisabled
+import com.javohir.fizmasofttask.core.ui.TextPrimary
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.OffsetMapping
@@ -53,18 +58,18 @@ fun BirthDateField(
 
     val borderColor = when {
         isError -> Color.Red
-        isFocused -> Color(0xFF326940)
-        else -> Color(0xFF717971)
+        isFocused -> Green
+        else -> BorderUnfocused
     }
 
     Column {
         Text(
             text = "Tug'ilgan sana",
             fontSize = 12.sp,
-            color = if (isError) Color.Red else Color(0xFF326940),
+            color = if (isError) Color.Red else Green,
             modifier = Modifier
                 .padding(start = 12.dp, bottom = 4.dp)
-                .background(Color(0xFFF6FBF3))
+                .background(Background)
                 .padding(horizontal = 4.dp)
         )
         Row(
@@ -82,7 +87,7 @@ fun BirthDateField(
             Icon(
                 imageVector = Icons.Default.CalendarToday,
                 contentDescription = null,
-                tint = Color(0xFF326940),
+                tint = Green,
                 modifier = Modifier.size(22.dp)
             )
             Spacer(modifier = Modifier.width(12.dp))
@@ -94,7 +99,7 @@ fun BirthDateField(
                     .onFocusChanged { isFocused = it.isFocused },
                 textStyle = LocalTextStyle.current.copy(
                     fontSize = 16.sp,
-                    color = Color(0xFF171D18)
+                    color = TextPrimary
                 ),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 visualTransformation = DateVisualTransformation,
@@ -104,7 +109,7 @@ fun BirthDateField(
                         Text(
                             text = "DD.MM.YYYY",
                             fontSize = 16.sp,
-                            color = Color(0xFF8A938B)
+                            color = TextDisabled
                         )
                     }
                     inner()
@@ -118,7 +123,7 @@ fun BirthDateField(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Clear",
-                        tint = Color(0xFF8A938B),
+                        tint = TextDisabled,
                         modifier = Modifier.size(18.dp)
                     )
                 }

@@ -1,8 +1,8 @@
 package com.javohir.fizmasofttask.presentation.splash
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javohir.fizmasofttask.domain.repository.AuthRepository
+import com.javohir.fizmasofttask.presentation.splash.utils.SplashDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +12,7 @@ import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
- * Created by: Javohir Oromov macos
+ * Created by: Javohir Oromov macyanOS
  * Project: Fizmasoft task
  * Package: com.javohir.fizmasofttask.presentation.splash
  * Description: ViewModel
