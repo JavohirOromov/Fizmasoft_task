@@ -12,5 +12,4 @@ interface MovieRepository {
     suspend fun fetchRemoteMovies(): List<Movie>
     suspend fun getCachedMovies(): List<Movie>
     suspend fun cacheMovies(movies: List<Movie>)
-    suspend fun getMovieById(id: Int): Movie?
 }

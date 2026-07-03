@@ -29,9 +29,4 @@ class MovieRepositoryImpl @Inject constructor(
     override suspend fun cacheMovies(movies: List<Movie>) {
         dao.upsertAll(movies.map { it.toEntity() })
     }
-
-    override suspend fun getMovieById(id: Int): Movie? {
-        return dao.getById(id)?.toDomain()
-    }
-
 }

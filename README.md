@@ -141,6 +141,7 @@ Namoz vaqti eslatmalari qurilmada rejalashtiriladi, shuning uchun internetsiz ha
 - **Namoz vaqtlari** tabi yuklanganda ilova joylashuv bo'yicha bugungi vaqtlarni oladi va har bir qolgan namoz uchun `AlarmManager` orqali aniq alarm (`setExactAndAllowWhileIdle`) rejalashtiradi.
 - Statik `BroadcastReceiver` (`PrayerAlarmReceiver`) alarm otganda bildirishnomani ko'rsatadi, shuning uchun ilova jarayoni o'chirilgan bo'lsa ham ishlaydi.
 - Android 13+ da ilova `POST_NOTIFICATIONS` ruxsatini so'raydi; Android 12+ da `SCHEDULE_EXACT_ALARM` ruxsatidan foydalanadi (aniq bo'lmagan alarmga to'g'ri fallback bilan).
+MIUI telefonlarida notifcation ishlashi uchun battery cheksizni yoqish kerak va autostart permession berilishi kerak
 
 > **Eslatma:** alarm'lar joriy kun uchun rejalashtiriladi va Namoz tabi har ochilganda qayta o'rnatiladi. Reboot'dan keyin / keyingi kunga qayta rejalashtirish — tabiiy keyingi yaxshilanish (`BOOT_COMPLETED` receiver + kunlik `WorkManager` jobi).
 
