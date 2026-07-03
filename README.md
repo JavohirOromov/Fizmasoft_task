@@ -6,7 +6,7 @@ Tashqi API'lar, xaritalar, joylashuvga asoslangan funksiyalar va lokal keshlash 
 
 ---
 
-## ✨ Imkoniyatlar
+##  Imkoniyatlar
 
 ### Ekranlar oqimi
 
