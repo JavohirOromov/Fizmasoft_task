@@ -71,5 +71,4 @@ class MlKitFaceDetector @Inject constructor(): FaceDetector {
     override fun close() {
        detector.close()
     }
-
 }
